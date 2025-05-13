@@ -1,12 +1,42 @@
+# ─── Taps ─────────────────────────────────────────────
 tap "homebrew/bundle"
-brew "aws-cdk"
-brew "awscli"
-brew "git"
-cask "1password"
-cask "cursor"
-cask "google-chrome"
-cask "jetbrains-toolbox"
-cask "postman"
-cask "sourcetree"
-cask "spotify"
-cask "visual-studio-code"
+tap "oven-sh/bun"
+
+# ─── Development - AWS & Cloud ───────────────────────
+brew "aws-cdk"       # AWS Cloud Development Kit - framework for defining AWS infra as code
+brew "awscli"        # Official Amazon AWS command-line interface
+
+# ─── Development - Languages & Package Managers ──────
+brew "oven-sh/bun/bun" # Bun - fast JS runtime and package manager
+brew "cocoapods"       # Dependency manager for Cocoa projects
+
+# ─── Development - Shell & CLI Tools ─────────────────
+brew "fish"          # User-friendly command-line shell
+brew "git"           # Distributed revision control system
+
+# ─── Apps - Passwords & Security ─────────────────────
+cask "1password"     # Password manager that keeps all passwords secure
+
+# ─── Apps - Communication & Social ───────────────────
+cask "telegram"      # Messaging app with a focus on speed and security
+cask "whatsapp"      # Native desktop client for WhatsApp
+cask "spotify"       # Music streaming service
+
+# ─── Apps - Browsers ─────────────────────────────────
+cask "google-chrome" # Web browser
+
+# ─── Apps - Development Tools ────────────────────────
+cask "chatgpt"       # OpenAI's official ChatGPT desktop app
+cask "cursor"        # Write, edit, and chat about your code with AI
+cask "figma"         # Collaborative team software
+cask "postman"       # API testing and collaboration tool
+cask "visual-studio-code" # Open-source code editor
+cask "jetbrains-toolbox"  # JetBrains tools manager
+cask "sourcetree"         # Git GUI client
+
+# ─── Apps - Productivity & Utilities ─────────────────
+cask "rectangle"     # Move and resize windows using keyboard shortcuts
+
+# ─── VSCode Extensions ───────────────────────────────
+vscode "mechatroner.rainbow-csv" # Colorize CSV files
+
