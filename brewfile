@@ -1,42 +1,47 @@
-# ─── Taps ─────────────────────────────────────────────
+# ─── Homebrew Taps ─────────────────────────────────────
 tap "homebrew/bundle"
 tap "oven-sh/bun"
 
-# ─── CLI Tools & Shells ───────────────────────────────
-brew "fish"                # User-friendly command-line shell for UNIX-like systems
-brew "git"                 # Distributed revision control system
-brew "awscli"              # Official Amazon AWS command-line interface
-brew "aws-cdk"             # AWS Cloud Development Kit - define infra as code
+# ─── CLI Tools & Shells ────────────────────────────────
+brew "fish"                # User-friendly shell for UNIX-like systems
+brew "git"                 # Distributed version control system
+brew "awscli"              # AWS command-line interface
+brew "aws-cdk"             # AWS Cloud Development Kit
 brew "cocoapods"           # Dependency manager for Cocoa projects
-brew "oven-sh/bun/bun"     # Bun - fast JS runtime, bundler, transpiler, package manager
+brew "colima"              # Docker runtime for macOS (alternative to Docker Desktop)
+brew "docker"              # Docker CLI
+brew "docker-compose"      # Define and run multi-container apps
+brew "ffmpeg"              # Audio/video converter and streamer
+brew "oven-sh/bun/bun"     # Bun – fast JS runtime, bundler, transpiler, and package manager
 
-# ─── Desktop Applications - Development Tools ─────────
-cask "visual-studio-code"  # Open-source code editor
-cask "jetbrains-toolbox"   # JetBrains tools manager
-cask "postman"             # API testing and collaboration platform
-cask "sourcetree"          # Graphical Git client
+# ─── Desktop Applications - Development Tools ──────────
+cask "visual-studio-code"  # Lightweight code editor
+cask "jetbrains-toolbox"   # JetBrains IDE manager
+cask "postman"             # API testing and collaboration tool
+cask "sourcetree"          # Git GUI client by Atlassian
 cask "cursor"              # AI-powered code editor
-cask "chatgpt"             # OpenAI's official ChatGPT desktop app
-cask "thonny"              # Python IDE for beginners
+cask "chatgpt"             # OpenAI ChatGPT desktop app
+cask "thonny"              # Beginner-friendly Python IDE
 
-# ─── Desktop Applications - Creative & Design ─────────
-cask "figma"               # Collaborative interface design tool
+# ─── Desktop Applications - Creative & Design ──────────
+cask "figma"               # UI/UX design tool
 cask "ultimaker-cura"      # 3D printing slicer software
-cask "obs"                 # Open-source screen recorder & streamer
+cask "obs"                 # Streaming and screen recording software
 
-# ─── Desktop Applications - Productivity & Utilities ─
-cask "rectangle"           # Window snapping and resizing tool
+# ─── Desktop Applications - Productivity & Utilities ───
+cask "rectangle"           # Window snapping and layout manager
 cask "1password"           # Secure password manager
-cask "logi-options+"       # Software for Logitech devices
-cask "mos"                 # Smooth scrolling and scroll direction control
+cask "logi-options+"       # Configuration software for Logitech devices
+cask "mos"                 # Smooth scrolling utility
+cask "notion"              # All-in-one workspace for notes, docs, tasks
 
-# ─── Desktop Applications - Browsers & Media ─────────
-cask "google-chrome"       # Web browser
+# ─── Desktop Applications - Browsers & Media ───────────
+cask "google-chrome"       # Popular web browser
 cask "spotify"             # Music streaming service
 
-# ─── Desktop Applications - Communication ─────────────
-cask "telegram"            # Secure messaging app
-cask "whatsapp"            # WhatsApp desktop client
+# ─── Desktop Applications - Communication ──────────────
+cask "telegram"            # Messaging app focused on speed and privacy
+cask "whatsapp"            # Messaging app by Meta
 
-# ─── VSCode Extensions ────────────────────────────────
-vscode "mechatroner.rainbow-csv" # Highlight and colorize CSV files
+# ─── VSCode Extensions ─────────────────────────────────
+vscode "mechatroner.rainbow-csv" # CSV syntax highlighting and colorization
