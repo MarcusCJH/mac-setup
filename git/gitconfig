@@ -1,0 +1,12 @@
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+	allowedSignersFile = ~/.ssh/allowed_signers
+[commit]
+	gpgsign = true
+
+# Identities on this Mac, written by git/identity.sh (make git-home / git-work):
+# personal everywhere, each work identity inside ~/Documents/git/<identity>/
+[include]
+	path = ~/.gitconfig-identities

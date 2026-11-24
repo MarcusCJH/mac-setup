@@ -4,13 +4,37 @@ export PATH := /opt/homebrew/bin:/usr/local/bin:$(PATH)
 ZSHRC := $(HOME)/.zshrc
 ALIASES_LINE := source "$(CURDIR)/aliases.zsh"
 
-.PHONY: help brew work home aliases
+.PHONY: help brew work home aliases git-config git-home git-work
 
 help:
 	@echo "make work | make home                   install Homebrew and that Brewfile"
 	@echo "make check-work | make check-home       list Brewfile entries not installed"
 	@echo "make cleanup-work | make cleanup-home   list installed packages not in the Brewfile"
 	@echo "make aliases                            source aliases.zsh from ~/.zshrc"
+	@echo "make git-home                           onboard the personal git identity"
+	@echo "make git-work                           onboard a work git identity (own folder); rerun for each"
+
+# install_file,<repo file>,<destination>,<mode>: copy into place, moving aside
+# an existing file that differs so nothing is silently lost
+define install_file
+	@if cmp -s $(1) $(2); then echo "unchanged  $(2)"; else \
+		if [ -e $(2) ]; then mv $(2) $(2).bak-$$(date +%Y%m%d%H%M%S) && echo "backed up  $(2)"; fi; \
+		install -m $(3) $(1) $(2) && echo "installed  $(2)"; fi
+endef
+
+git-config:
+	@install -d -m 700 $(HOME)/.ssh
+	$(call install_file,git/gitconfig,$(HOME)/.gitconfig,644)
+	$(call install_file,ssh/config,$(HOME)/.ssh/config,600)
+
+# Personal identity: name, email and 1Password key; rerun to change it
+git-home: git-config
+	@git/identity.sh personal
+
+# One work identity with its own folder; rerun to add another or change one
+git-work: git-config
+	@[ -f $(HOME)/.gitconfig-personal ] || git/identity.sh personal
+	@git/identity.sh
 
 aliases:
 	@touch $(ZSHRC)

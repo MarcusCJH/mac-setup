@@ -1,0 +1,4 @@
+# 1Password serves the SSH keys. Each git identity picks its own key through
+# core.sshCommand (see git/identity.sh), so github.com needs no pinning here.
+Host *
+	IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
