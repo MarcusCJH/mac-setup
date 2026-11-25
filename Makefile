@@ -2,7 +2,7 @@
 export PATH := /opt/homebrew/bin:/usr/local/bin:$(PATH)
 
 ZSHRC := $(HOME)/.zshrc
-ALIASES_LINE := source "$(CURDIR)/aliases.zsh"
+ALIASES_LINE := source "$(CURDIR)/zsh/aliases.zsh"
 
 .PHONY: help brew work home aliases git-config git-home git-work
 
@@ -10,7 +10,8 @@ help:
 	@echo "make work | make home                   install Homebrew and that Brewfile"
 	@echo "make check-work | make check-home       list Brewfile entries not installed"
 	@echo "make cleanup-work | make cleanup-home   list installed packages not in the Brewfile"
-	@echo "make aliases                            source aliases.zsh from ~/.zshrc"
+	@echo "make dump-work | make dump-home         update that Brewfile to match what's installed"
+	@echo "make aliases                            source zsh/aliases.zsh from ~/.zshrc"
 	@echo "make git-home                           onboard the personal git identity"
 	@echo "make git-work                           onboard a work git identity (own folder); rerun for each"
 
@@ -36,19 +37,26 @@ git-work: git-config
 	@[ -f $(HOME)/.gitconfig-personal ] || git/identity.sh personal
 	@git/identity.sh
 
+# Also replaces a line pointing at where aliases.zsh used to be in this repo
 aliases:
 	@touch $(ZSHRC)
-	@grep -qxF '$(ALIASES_LINE)' $(ZSHRC) || echo '$(ALIASES_LINE)' >> $(ZSHRC)
-	@echo "~/.zshrc sources aliases.zsh; open a new terminal or run: source ~/.zshrc"
+	@grep -qxF '$(ALIASES_LINE)' $(ZSHRC) || { \
+		sed -i '' '\|^source "$(CURDIR)/.*aliases\.zsh"$$|d' $(ZSHRC); \
+		echo '$(ALIASES_LINE)' >> $(ZSHRC); }
+	@echo "~/.zshrc sources zsh/aliases.zsh; open a new terminal or run: source ~/.zshrc"
 
 brew:
 	@command -v brew >/dev/null || /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 work home: brew
-	brew bundle --file=Brewfile.$@
+	brew bundle --file=brew/Brewfile.$@
 
 check-%:
-	brew bundle check --verbose --file=Brewfile.$*
+	brew bundle check --verbose --file=brew/Brewfile.$*
 
 cleanup-%:
-	brew bundle cleanup --file=Brewfile.$*
+	brew bundle cleanup --file=brew/Brewfile.$*
+
+# Keeps the Brewfile's sections and comments; see brew/dump.py
+dump-%:
+	@brew/dump.py brew/Brewfile.$*
