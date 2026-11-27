@@ -4,7 +4,7 @@ export PATH := /opt/homebrew/bin:/usr/local/bin:$(PATH)
 ZSHRC := $(HOME)/.zshrc
 ALIASES_LINE := source "$(CURDIR)/zsh/aliases.zsh"
 
-.PHONY: help brew work home aliases git-config git-home git-work
+.PHONY: help brew work home aliases git-config git-home git-work acli
 
 help:
 	@echo "make work | make home                   install Homebrew and that Brewfile"
@@ -14,6 +14,7 @@ help:
 	@echo "make aliases                            source zsh/aliases.zsh from ~/.zshrc"
 	@echo "make git-home                           onboard the personal git identity"
 	@echo "make git-work                           onboard a work git identity (own folder); rerun for each"
+	@echo "make acli                               log acli in to an identity's Atlassian account; rerun for each"
 
 # install_file,<repo file>,<destination>,<mode>: copy into place, moving aside
 # an existing file that differs so nothing is silently lost
@@ -36,6 +37,10 @@ git-home: git-config
 git-work: git-config
 	@[ -f $(HOME)/.gitconfig-personal ] || git/identity.sh personal
 	@git/identity.sh
+
+# One identity's Atlassian account, by API token; rerun to add another or change one
+acli:
+	@acli/login.sh
 
 # Also replaces a line pointing at where aliases.zsh used to be in this repo
 aliases:

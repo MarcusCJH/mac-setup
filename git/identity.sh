@@ -4,7 +4,8 @@
 #   make git-work  ->  git/identity.sh, which asks for the work identity's name
 # Each identity has its own name, email, 1Password SSH key and repo folder
 # ~/Documents/git/<identity>/; personal is used everywhere else. Creates the
-# key if needed, walks you through adding it to GitHub, and writes
+# key if needed, walks you through adding it to GitHub, logs the GitHub CLI in
+# as that account (if gh is installed), and writes
 # ~/.gitconfig-<identity> and ~/.ssh/github-<identity>.pub (the public key it
 # points at). No keys live in this repo. To drop an identity, delete those two
 # files and rerun.
@@ -124,6 +125,19 @@ if [ -z "$login" ]; then
 		login=$(github_login)
 		[ -n "$login" ] || echo "GitHub doesn't accept the key yet"
 	done
+fi
+
+# gh keeps one login per GitHub account; the gh function in zsh/aliases.zsh
+# reads github.user to pick the one for the folder you're in
+if [ -n "$login" ]; then
+	git config -f "$config" github.user "$login"
+	if command -v gh >/dev/null && ! gh auth token --user "$login" >/dev/null 2>&1; then
+		echo
+		echo "Log the GitHub CLI in as $login. Its code goes on your clipboard; in the"
+		echo "browser, switch to your $login account before you enter it."
+		gh auth login --hostname github.com --git-protocol ssh --skip-ssh-key --web --clipboard || true
+		gh auth token --user "$login" >/dev/null 2>&1 || echo "gh isn't logged in as $login; rerun this setup to retry" >&2
+	fi
 fi
 
 echo
